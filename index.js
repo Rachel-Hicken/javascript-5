@@ -2,12 +2,6 @@ const _ = require('lodash');
 const axios = require('axios');
 const movies = require('./movies.json');
 
-let brack = {
-    name:'Brack',
-    age:32,
-    height:'6ft'
-}
-
 let states = {
     california:{population:38332523, size:162695},
     texas:{population:26448193, size:268580},
@@ -44,7 +38,7 @@ let jeremysDieties = ['Mystra, goddess of magic',
                         'Cyric, god of lies' , 
                         'Lathander, god of birth and renewal',
                         'Sune, goddess of love and beauty'];
-                        
+
 let toddsDieties = ['Bane, god of tyranny',
                         'Fharlanghn, god of travelers',
                         'Talona, goddess of disease and poison',
