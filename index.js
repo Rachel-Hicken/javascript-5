@@ -13,12 +13,35 @@ let states = {
   }
  
 // map -> mapValues / mapKeys
+_.map(states, (el,i,wholeObj)=>{
+    el.density = el.population/el.size;
+    return el;
+})
+//
+
+let stateObj = _.mapValues(states, (el,i,wholeObj)=>{
+    el.density = el.population/el.size;
+    return el;
+})
+
+console.log(states)
+console.log(stateObj)
 
 // forEach -> forIn / forOwn,  
 
 // find
+let foundMovie = _.find(movies, {
+    year: '2006',
+    contentRating: '11'
+})
 
+console.log(foundMovie);
 // groupBy
+
+let moviesByYear = _.groupBy(movies, 'year');
+let moviesByDecade = _.groupBy(movies, (movie)=>{
+    return Math.floor(movie.year/10) * 10
+})
 
 // union
 
@@ -47,7 +70,11 @@ let toddsDieties = ['Bane, god of tyranny',
                         'Lathander, god of birth and renewal', 
                         'Tyr, god of justice']
 
+let allDieties =_.union(bracksDieties,jeremysDieties,toddsDieties)
+
 // intersection
+
+let dinnerInvites = _.intersection(bracksDieties,jeremysDieties,toddsDieties)
 
 // memoize
 let slowFunction = function(n){
@@ -62,12 +89,50 @@ let slowFunction = function(n){
     return total;
 }
 
+let memFunction = _.memoize(slowFunction);
+console.time('slowFn 1')
+memFunction(1000)
+console.timeEnd('slowFn 1')
+
+console.time('slowFn 2')
+memFunction(999)
+console.timeEnd('slowFn 2')
+
+console.time('slowFn 3')
+memFunction(999)
+console.timeEnd('slowFn 3')
 
 // We can memoize API requests
 function getPerson(i){
     return axios.get('https://swapi.co/api/people/' + i)
 }
 
-// Debounce
-// Throttle
+let memApiCall = _.memoize(getPerson)
+console.time('api call1')
+memApiCall(5).then(date=>{
+    console.log(data.data)
+    console.timeEnd('api call1')
+});
 
+setTimeout(()=>{
+    console.time('api call2')
+    memApiCall(5).then(date=>{
+    console.log(data.data)
+    console.timeEnd('api call2')
+});
+
+// Debounce
+    function doStuff(a){
+        console.log(a)
+    }
+
+    let debounced = _.debounce(doStuff, 100)
+
+    for (var i=0;i<50;i++){
+        debounced(i);
+    }
+// Throttle
+let throttled = _.throttle(doStuff, 100)
+for (var i=0; i<50; i++){
+    throttled(i);
+}
