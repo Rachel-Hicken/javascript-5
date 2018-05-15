@@ -19,30 +19,41 @@ let states = {
   }
  
 // map -> mapValues / mapKeys
-let newStates = _.mapValues(states, (elem, index, wholeObj) => {
-    elem.density = elem.population / elem.size;
-    return elem;
-})
+
 // forEach -> forIn / forOwn,  
 
 // find
 
-let myMovie = _.find(movies, {year:'2000', contentRating:'15'});
-
 // groupBy
-
-let byYear = _.groupBy(movies, 'year');
-let byDecade = _.groupBy(movies, (movie)=>Math.floor(movie.year / 10) * 10)
 
 // union
 
-let brackFriends = ['Joe', 'Missy', 'Joe','Joe','Joe', 'David', 'Golden', 'Blake', 'Jeremy'];
-let jeremyFriends = ['Missy', 'Nolan', 'Noah', 'Blake', 'Stephen', 'Lloyd', 'Ally'];
+let bracksDieties = ['Auril, goddess of winter', 
+                        'Bane, god of tyranny', 
+                        'Lathander, god of birth and renewal', 
+                        'Myrkul, god of death', 
+                        'Umberlee, goddess of the sea',
+                        'Tempus, god of war', 
+                        'Mystra, goddess of magic', 
+                        'Fharlanghn, god of travelers'];
 
-let combinedFriends = _.union(brackFriends,jeremyFriends);
+let jeremysDieties = ['Mystra, goddess of magic', 
+                        'Talona, goddess of disease and poison', 
+                        'Oghma, god of knowledge', 
+                        'Loviatar, goddess of pain', 
+                        'Cyric, god of lies' , 
+                        'Lathander, god of birth and renewal',
+                        'Sune, goddess of love and beauty'];
+                        
+let toddsDieties = ['Bane, god of tyranny',
+                        'Fharlanghn, god of travelers',
+                        'Talona, goddess of disease and poison',
+                        'Helm, god of protection',
+                        'Gond, god of craft', 
+                        'Lathander, god of birth and renewal', 
+                        'Tyr, god of justice']
 
 // intersection
-let sharedFriends = _.intersection(brackFriends, jeremyFriends);
 
 // memoize
 let slowFunction = function(n){
@@ -57,57 +68,12 @@ let slowFunction = function(n){
     return total;
 }
 
-// console.time('slowFunction:10');
 
-// let x = slowFunction(10);
-
-// console.timeEnd('slowFunction:10');
-// console.log(x);
-
-// console.time('slowFunction:1000');
-
-// let y = slowFunction(1000);
-
-// console.timeEnd('slowFunction:1000');
-// console.log(y);
-
-// let memFunction = _.memoize(slowFunction);
-
-// console.time('memFunction:1000');
-
-// let z = memFunction(1000);
-
-// console.timeEnd('memFunction:1000');
-// console.log(z);
-
-// console.time('memFunction:1000-2');
-
-// z = memFunction(1000);
-
-// console.timeEnd('memFunction:1000-2');
-// console.log(z);
-
+// We can memoize API requests
 function getPerson(i){
     return axios.get('https://swapi.co/api/people/' + i)
 }
 
-let memGetPerson = _.memoize(getPerson);
+// Debounce
+// Throttle
 
-console.time('axios');
-memGetPerson(1).then(data=>{
-    // console.log(data);
-    console.timeEnd('axios');
-
-    console.time('axios2');
-    memGetPerson(1).then(data=>{
-        // console.log(data);
-        console.timeEnd('axios2');
-    })
-});
-
-
-
-
-
-
-let a = 5 + 13 + '5';
